@@ -2,552 +2,356 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Mesut Can Tomay | Usta Komedyen</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes">
+<meta name="theme-color" content="#E5B920">
+<title>Mesut Can Tomay</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0a;
-    --surface: #141414;
-    --card: #1e1e1e;
-    --accent: #f5c518;
-    --accent2: #ff6b00;
-    --text: #f0f0f0;
-    --muted: #888;
-    --radius: 16px;
-  }
-  [data-theme="light"] {
-    --bg: #f5f0e8;
-    --surface: #ebe5d8;
-    --card: #ffffff;
-    --text: #1a1a1a;
-    --muted: #555;
-  }
-  [data-theme="purple"] {
-    --bg: #0d0718;
-    --surface: #160d2b;
-    --card: #201040;
-    --accent: #c77dff;
-    --accent2: #7b2fff;
-    --text: #f0e6ff;
-    --muted: #9d7fcf;
-  }
-  [data-theme="green"] {
-    --bg: #041a0e;
-    --surface: #072714;
-    --card: #0e3d1e;
-    --accent: #39ff14;
-    --accent2: #00c853;
-    --text: #e0ffe8;
-    --muted: #5cb870;
-  }
+:root {
+  --accent: #E5B920; /* Daha yumuşak bir sarı/altın tonu */
+  --bg: #1a1a1c; /* Tam siyah yerine yumuşak koyu gri */
+  --text: #e4e4e6; /* Tam beyaz yerine kırık beyaz */
+  --card: #242427; /* Arka plandan hafifçe ayrılan soft kart rengi */
+  --card2: #2a2a2e;
+  --btn-text: #111;
+  --radius: 20px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh;transition:background .3s,color .3s}
 
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
-    transition: background 0.4s, color 0.4s;
-  }
+/* Açık Tema - Daha sıcak ve soft tonlar */
+body.light {
+  --bg: #f4f4f5; 
+  --text: #2c2e33; 
+  --card: #ffffff; 
+  --card2: #ececf1;
+}
 
-  /* FALLING TEXT BG */
-  #bg-canvas {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.07;
-  }
+/* Intro Flashbang Etkisini Giderme */
+#intro{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .7s,visibility .7s}
+#intro.gone{opacity:0;visibility:hidden;pointer-events:none}
+.il{font-family:'Fredoka One',sans-serif;font-size:clamp(2.2rem,10vw,5rem);color:var(--text);text-align:center;animation:bIn .7s ease both}
+.is{font-size:clamp(.85rem,3vw,1.2rem);color:var(--text);opacity:0.7;margin-top:.4rem;animation:fUp .7s .2s both}
+.ibar{width:55%;max-width:280px;height:4px;background:var(--card2);border-radius:2px;margin-top:1.8rem;overflow:hidden}
+.ifill{height:100%;background:var(--accent);border-radius:2px;animation:barFill 2.4s ease forwards}
 
-  /* SETTINGS */
-  #settings-btn {
-    position: fixed;
-    top: 16px; right: 16px;
-    z-index: 1000;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 20px rgba(245,197,24,0.4);
-    transition: transform 0.3s;
-  }
-  #settings-btn:hover { transform: rotate(60deg) scale(1.1); }
+@keyframes bIn{from{transform:scale(.5) translateY(30px);opacity:0}70%{transform:scale(1.08)}to{transform:scale(1);opacity:1}}
+@keyframes fUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes barFill{from{width:0}to{width:100%}}
 
-  #settings-panel {
-    position: fixed;
-    top: 68px; right: 16px;
-    z-index: 999;
-    background: var(--card);
-    border: 1px solid var(--accent);
-    border-radius: var(--radius);
-    padding: 18px;
-    width: 240px;
-    display: none;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  }
-  #settings-panel.open { display: block; }
-  #settings-panel h3 { font-size: 14px; color: var(--accent); margin-bottom: 12px; font-weight: 700; letter-spacing: 1px; }
-  .setting-group { margin-bottom: 14px; }
-  .setting-group label { font-size: 11px; color: var(--muted); display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
-  .theme-btns { display: flex; gap: 6px; flex-wrap: wrap; }
-  .theme-btn {
-    padding: 5px 10px; font-size: 11px; border: 1px solid var(--muted);
-    border-radius: 20px; cursor: pointer; background: transparent; color: var(--text);
-    transition: all 0.2s;
-  }
-  .theme-btn.active, .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .slider-row { display: flex; align-items: center; gap: 8px; }
-  .slider-row input[type=range] { flex: 1; accent-color: var(--accent); }
-  .slider-row span { font-size: 11px; color: var(--muted); min-width: 30px; }
+/* Arka Plan Yazıları - Daha düşük opaklık ve yavaş hareket */
+.bgl{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;opacity:.025}
+.bgl span{position:absolute;font-family:'Fredoka One',sans-serif;color:var(--accent);white-space:nowrap;animation:floatUp linear infinite}
+@keyframes floatUp{0%{transform:translateY(110vh) rotate(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-15vh) rotate(400deg);opacity:0}}
 
-  /* INTRO */
-  #intro {
-    position: fixed; inset: 0;
-    background: #000;
-    z-index: 9999;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 20px;
-  }
-  #intro-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(40px, 12vw, 80px);
-    color: var(--accent);
-    text-align: center;
-    line-height: 1;
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-  #intro-logo span { color: #fff; }
-  #intro-subtitle {
-    font-size: clamp(12px, 3vw, 16px);
-    color: var(--muted);
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    animation: fadeInUp 1s 0.5s both;
-  }
-  #intro-bar {
-    width: min(280px, 70vw);
-    height: 3px;
-    background: #222;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  #intro-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    width: 0%;
-    transition: width 2.5s ease;
-  }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
-  @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
-  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+#main{position:relative;z-index:1;opacity:0;transition:opacity .7s}
+#main.show{opacity:1}
 
-  /* BIRTHDAY BANNER */
-  #bday-banner {
-    display: none;
-    position: fixed; inset: 0;
-    z-index: 9000;
-    background: rgba(0,0,0,0.85);
-    align-items: center; justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-  }
-  #bday-banner.show { display: flex; }
-  #bday-banner h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(28px, 8vw, 60px);
-    color: var(--accent);
-    line-height: 1.2;
-    animation: bdayAnim 0.8s ease both;
-  }
-  #bday-banner p { color: #fff; font-size: clamp(14px, 4vw, 22px); margin-top: 10px; }
-  #bday-close {
-    margin-top: 24px;
-    padding: 12px 32px;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 30px;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  @keyframes bdayAnim { from{transform:scale(0.5);opacity:0} to{transform:scale(1);opacity:1} }
+#sb{position:fixed;top:1rem;right:1rem;z-index:1000;background:var(--accent);border:none;border-radius:50%;width:46px;height:46px;cursor:pointer;font-size:1.25rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:transform .35s,box-shadow .3s}
+#sb:hover,#sb:active{transform:rotate(90deg);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
 
-  /* MAIN */
-  main { position: relative; z-index: 1; }
+#sp{position:fixed;top:0;right:-310px;width:290px;height:100vh;background:var(--card);z-index:999;padding:1.8rem 1.4rem;transition:right .38s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 25px rgba(0,0,0,0.3);overflow-y:auto}
+#sp.open{right:0}
+.spt{font-family:'Fredoka One',sans-serif;font-size:1.4rem;color:var(--accent);margin-bottom:1.4rem}
+.spg{margin-bottom:1.4rem}
+.spl{font-size:.8rem;opacity:.65;margin-bottom:.45rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.cpw{display:flex;gap:.45rem;flex-wrap:wrap}
+.cd{width:30px;height:30px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:.2s}
+.cd.act,.cd:hover{border-color:var(--text);transform:scale(1.18)}
+.tog{display:flex;align-items:center;gap:.7rem;margin-top:.35rem;font-size:.9rem}
+.sw{width:42px;height:23px;background:#555;border-radius:12px;position:relative;cursor:pointer;transition:background .3s;flex-shrink:0}
+.sw.on{background:var(--accent)}
+.sw::after{content:'';position:absolute;left:3px;top:3px;width:17px;height:17px;border-radius:50%;background:#fff;transition:left .3s}
+.sw.on::after{left:22px}
+.spc{width:100%;padding:.75rem;background:var(--accent);color:var(--btn-text);border:none;border-radius:14px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:1rem;font-family:'Poppins',sans-serif}
+input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}
 
-  /* HERO */
-  #hero {
-    min-height: 100dvh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 80px 20px 60px;
-    position: relative;
-  }
-  .profile-ring {
-    width: clamp(120px, 35vw, 180px);
-    height: clamp(120px, 35vw, 180px);
-    border-radius: 50%;
-    padding: 4px;
-    background: conic-gradient(var(--accent), var(--accent2), var(--accent));
-    animation: spin 4s linear infinite;
-    margin-bottom: 24px;
-    flex-shrink: 0;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .profile-img {
-    width: 100%; height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    border: 3px solid var(--bg);
-  }
-  .hero-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(36px, 11vw, 72px);
-    line-height: 1;
-    color: var(--text);
-  }
-  .hero-name span { color: var(--accent); }
-  .hero-tag {
-    font-size: clamp(11px, 3vw, 15px);
-    color: var(--accent2);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin: 8px 0 20px;
-  }
-  .hero-desc {
-    max-width: 480px;
-    font-size: clamp(13px, 3.5vw, 15px);
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 28px;
-  }
-  .cta-btn {
-    display: inline-block;
-    padding: 14px 36px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: #000;
-    font-weight: 700;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: clamp(13px, 3.5vw, 16px);
-    letter-spacing: 1px;
-    box-shadow: 0 6px 24px rgba(245,197,24,0.35);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(245,197,24,0.5); }
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 1.2rem 3rem;text-align:center;gap:1.3rem}
+.pr{width:clamp(150px,45vw,200px);height:clamp(150px,45vw,200px);border-radius:50%;background:var(--accent);padding:4px;box-shadow:0 0 0 0 var(--accent);animation:glow 4s ease-in-out infinite;flex-shrink:0}
 
-  /* SCROLL INDICATOR */
-  .scroll-down {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center;
-    gap: 6px; color: var(--muted); font-size: 11px; letter-spacing: 2px;
-  }
-  .scroll-arrow {
-    width: 20px; height: 20px;
-    border-right: 2px solid var(--muted);
-    border-bottom: 2px solid var(--muted);
-    transform: rotate(45deg);
-    animation: bounce 1.5s infinite;
-  }
-  @keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(6px)} }
+/* Parlama efektini daha soft hale getirdik */
+@keyframes glow{
+  0%,100%{box-shadow:0 0 15px rgba(229,185,32,0.15),0 0 30px rgba(229,185,32,0.08)}
+  50%{box-shadow:0 0 25px rgba(229,185,32,0.3),0 0 50px rgba(229,185,32,0.15)}
+}
 
-  /* SECTIONS */
-  section {
-    padding: clamp(40px, 10vw, 80px) clamp(16px, 5vw, 40px);
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(28px, 8vw, 44px);
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-  .section-title span { color: var(--accent); }
-  .section-line {
-    width: 50px; height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    border-radius: 2px;
-    margin-bottom: 28px;
-  }
-
-  /* BIO CARDS */
-  .bio-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  .bio-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 16px;
-    border: 1px solid rgba(245,197,24,0.1);
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .bio-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .bio-card .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-  .bio-card .val { font-size: clamp(14px, 4vw, 17px); font-weight: 700; color: var(--accent); margin-top: 4px; }
-  .bio-text {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 20px;
-    font-size: clamp(13px, 3.5vw, 15px);
-    color: var(--muted);
-    line-height: 1.8;
-    border-left: 3px solid var(--accent);
-  }
-
-  /* GALLERY */
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  .gallery img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: var(--radius);
-    transition: transform 0.3s, filter 0.3s;
-    filter: grayscale(20%);
-  }
-  .gallery img:hover { transform: scale(1.03); filter: none; }
-  .gallery img:first-child {
-    grid-column: 1 / -1;
-    aspect-ratio: 16/9;
-  }
-
-  /* BILET SECTION */
-  #bilet {
-    background: var(--surface);
-    border-radius: 24px;
-    padding: clamp(30px, 8vw, 60px) clamp(16px, 5vw, 40px);
-    margin: 0 auto 40px;
-    max-width: 800px;
-    text-align: center;
-    border: 1px solid rgba(245,197,24,0.15);
-  }
-  .bilet-icon { font-size: 48px; margin-bottom: 12px; }
-  .bilet-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 16px 40px;
-    background: linear-gradient(135deg, #00b341, #00e05a);
-    color: #000;
-    font-weight: 700;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: clamp(14px, 4vw, 18px);
-    margin-top: 20px;
-    box-shadow: 0 6px 24px rgba(0,179,65,0.35);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .bilet-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(0,179,65,0.5); }
-
-  /* SOCIAL */
-  .social-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-  .social-btn {
-    display: flex; align-items: center; gap: 8px;
-    padding: 12px 22px;
-    background: var(--card);
-    border-radius: 50px;
-    text-decoration: none;
-    color: var(--text);
-    font-size: clamp(12px, 3.5vw, 14px);
-    font-weight: 600;
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: all 0.2s;
-  }
-  .social-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-
-  /* FOOTER */
-  footer {
-    text-align: center;
-    padding: 40px 20px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    position: relative; z-index: 1;
-  }
-  footer p { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
-
-  /* REVEAL ANIMATION */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: none; }
+.pri{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center top;display:block}
+.prf{width:100%;height:100%;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',sans-serif;font-size:clamp(2rem,8vw,3.5rem);color:#111}
+.badge{background:var(--accent);color:var(--btn-text);padding:.3rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;display:inline-block}
+h1.hn{font-family:'Fredoka One',sans-serif;font-size:clamp(2rem,9vw,4rem);line-height:1.1}
+h1.hn span{color:var(--accent)}
+.hdesc{font-size:clamp(.88rem,2.5vw,1.05rem);opacity:.78;max-width:480px;line-height:1.75}
+.stats{display:flex;gap:clamp(1rem,5vw,2.5rem);justify-content:center;flex-wrap:wrap}
+.st{text-align:center}
+.sn{font-family:'Fredoka One',sans-serif;font-size:clamp(1.6rem,5vw,2.2rem);color:var(--accent)}
+.sl{font-size:.7rem;opacity:.6;text-transform:uppercase;letter-spacing:.06em;margin-top:.1rem}
+.socrow{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.sb2{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.1rem;border-radius:50px;font-size:.85rem;font-weight:700;text-decoration:none;transition:.2s;font-family:'Poppins',sans-serif}
+.sb2:hover{transform:translateY(-3px);filter:brightness(1.1)}
+.syt{background:#D32F2F;color:#fff} /* Kırmızı tonu yumuşatıldı */
+.sig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+.stk{background:#222;color:#fff;border:1px solid #444}
+body.light .stk{background:#eee;color:#111;border-color:#ccc}
+sec.s{padding:3.5rem 1.2rem;max-width:680px;margin:0 auto}
+.stitle{font-family:'Fredoka One',sans-serif;font-size:clamp(1.5rem,5vw,2.2rem);color:var(--accent);margin-bottom:1.3rem;text-align:center}
+.card{background:var(--card);border-radius:var(--radius);padding:1.4rem;margin-bottom:.9rem;border:1px solid rgba(255,255,255,0.03);transition:.3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.15)}
+body.light .card{border-color:rgba(0,0,0,0.05); box-shadow:0 2px 10px rgba(0,0,0,0.03)}
+body.light .card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.ci{font-size:1.8rem;margin-bottom:.4rem}
+.ct{font-weight:700;font-size:1rem;color:var(--accent);margin-bottom:.3rem}
+.cx{font-size:.88rem;opacity:.85;line-height:1.65} /* Okunabilirlik için opaklık artırıldı */
+.tl{border-left:3px solid var(--accent);padding-left:1.4rem;margin-top:.8rem}
+.tli{margin-bottom:1.3rem;position:relative}
+.tli::before{content:'';position:absolute;left:-1.85rem;top:.3rem;width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+.tly{font-size:.78rem;color:var(--accent);font-weight:800;letter-spacing:.04em}
+.tlx{font-size:.87rem;opacity:.85;margin-top:.15rem;line-height:1.55}
+.showcard{background:linear-gradient(135deg,var(--card),var(--card2));border:2px solid var(--accent);border-radius:24px;padding:2rem 1.5rem;text-align:center}
+.sct{font-family:'Fredoka One',sans-serif;font-size:clamp(1.5rem,5vw,2rem);color:var(--accent);margin-bottom:.5rem}
+.scd{opacity:.85;margin-bottom:1.4rem;font-size:.92rem;line-height:1.6}
+.btnp{display:inline-flex;align-items:center;gap:.45rem;background:var(--accent);color:var(--btn-text);border:none;border-radius:50px;padding:.85rem 1.8rem;font-size:.95rem;font-weight:800;cursor:pointer;text-decoration:none;transition:.2s;font-family:'Poppins',sans-serif}
+.btnp:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(229,185,32,0.3)}
+footer{text-align:center;padding:2.5rem 1.2rem;border-top:1px solid rgba(255,255,255,0.05);margin-top:1rem}
+body.light footer{border-top-color:rgba(0,0,0,0.05)}
+.fr{font-size:.82rem;opacity:.65;margin-bottom:.45rem}
+.fc{font-size:.88rem}
+.fc a{color:var(--accent);text-decoration:none;font-weight:700;transition:.2s}
+.fc a:hover{opacity:.7}
+#bm{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);padding:1rem}
+#bm.show{display:flex}
+.bb{background:linear-gradient(135deg, var(--card), var(--card2));border:2px solid var(--accent);border-radius:24px;padding:2.5rem 1.8rem;text-align:center;max-width:320px;width:100%;animation:bdIn .6s cubic-bezier(.34,1.56,.64,1) both;position:relative;overflow:hidden}
+@keyframes bdIn{from{transform:scale(.5) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+.be{font-size:3.5rem;display:block;animation:spin 1.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bt{font-family:'Fredoka One',sans-serif;font-size:1.7rem;color:var(--text);margin:.4rem 0}
+.bd{color:var(--text);font-size:.92rem;opacity:.88;line-height:1.6;margin-bottom:1.4rem}
+.bc{background:var(--accent);color:var(--btn-text);border:none;border-radius:50px;padding:.75rem 2rem;font-weight:800;cursor:pointer;font-size:.95rem;font-family:'Poppins',sans-serif}
+.cf{position:absolute;border-radius:50%;pointer-events:none;animation:fall linear infinite}
+@keyframes fall{0%{transform:translateY(-30px) rotate(0);opacity:1}100%{transform:translateY(400px) rotate(720deg);opacity:0}}
+.rev{opacity:0;transform:translateY(28px);transition:opacity .55s ease,transform .55s ease}
+.rev.vis{opacity:1;transform:none}
+@media(max-width:380px){.hero{padding-top:4.5rem}.stats{gap:.8rem}.sn{font-size:1.4rem}}
+@media(min-width:768px){sec.s{padding:4rem 2rem}}
 </style>
 </head>
-<body data-theme="dark">
+<body>
 
-<!-- INTRO -->
 <div id="intro">
-  <div id="intro-logo"><span>MESUT CAN</span><br>TOMAY</div>
-  <div id="intro-subtitle">Usta Komedyen</div>
-  <div id="intro-bar"><div id="intro-bar-fill"></div></div>
+  <div class="il">😂 Mesut Can Tomay</div>
+  <div class="is">Usta Komedyen &amp; İçerik Üreticisi</div>
+  <div class="ibar"><div class="ifill"></div></div>
 </div>
 
-<!-- BIRTHDAY BANNER (Haziran ayı için örnek) -->
-<div id="bday-banner">
-  <h1>🎂 Doğum Günün Kutlu Olsun<br>Usta Komedyen<br>Mesut Can Tomay! 🎉</h1>
-  <p>2 Haziran — Mutlu yıllar! 🥳</p>
-  <button id="bday-close" onclick="document.getElementById('bday-banner').classList.remove('show')">Teşekkürler! 🎈</button>
-</div>
+<div class="bgl" id="bgl"></div>
+<button id="sb" onclick="toggleSP()" aria-label="Ayarlar">⚙️</button>
 
-<!-- SETTINGS -->
-<button id="settings-btn" onclick="toggleSettings()">⚙️</button>
-<div id="settings-panel">
-  <h3>⚙️ Ayarlar</h3>
-  <div class="setting-group">
-    <label>Tema</label>
-    <div class="theme-btns">
-      <button class="theme-btn active" onclick="setTheme('dark',this)">🌑 Koyu</button>
-      <button class="theme-btn" onclick="setTheme('light',this)">☀️ Açık</button>
-      <button class="theme-btn" onclick="setTheme('purple',this)">💜 Mor</button>
-      <button class="theme-btn" onclick="setTheme('green',this)">🟢 Yeşil</button>
+<div id="sp" role="dialog" aria-label="Ayarlar paneli">
+  <div class="spt">⚙️ Ayarlar</div>
+  <div class="spg">
+    <div class="spl">Vurgu Rengi</div>
+    <div class="cpw" id="cp"></div>
+  </div>
+  <div class="spg">
+    <div class="spl">Tema</div>
+    <div class="tog">
+      <span>🌙 Koyu</span>
+      <div class="sw" id="tt" onclick="toggleTheme()"></div>
+      <span>☀️ Açık</span>
     </div>
   </div>
+  <div class="spg">
+    <div class="spl">Yazı Boyutu</div>
+    <div class="tog" style="flex-direction:column;align-items:stretch;gap:.3rem">
+      <input type="range" id="fsr" min="13" max="20" value="16" oninput="setFont(this.value)">
+      <div style="display:flex;justify-content:space-between;font-size:.75rem;opacity:.5"><span>Küçük</span><span>Büyük</span></div>
+    </div>
+  </div>
+  <div class="spg">
+    <div class="spl">Arka Plan Efekti</div>
+    <div class="tog">
+      <span>Gülüşler</span>
+      <div class="sw on" id="bgt" onclick="toggleBg()"></div>
+    </div>
+  </div>
+  <button class="spc" onclick="toggleSP()">✕ Kapat</button>
 </div>
 
-<!-- CANVAS BG -->
-<canvas id="bg-canvas"></canvas>
-
-<main>
-  <!-- HERO -->
-  <section id="hero">
-    <div class="profile-ring">
-      <img class="profile-img" src="https://images.unsplash.com/photo-1583072049909-51a44c50f833?auto=format&fit=crop&w=400&q=80" alt="Mesut Can Tomay">
+<div id="main">
+  <div class="hero">
+    <div class="pr">
+      <img class="pri" id="pimg" src="https://yt3.googleusercontent.com/ytc/AIdro_mhMJNBE-bEtQRh8vg04Q-dR6X4sCMiTAqD-y0WgRb_=s900-c-k-c0x00ffffff-no-rj" alt="Mesut Can Tomay" onerror="this.style.display='none';document.getElementById('pfall').style.display='flex'">
+      <div class="prf" id="pfall" style="display:none">MCT</div>
     </div>
-    <div class="hero-name"><span>Mesut Can</span> Tomay</div>
-    <div class="hero-tag">Oyuncu · Komedyen · YouTuber</div>
-    <p class="hero-desc">Türkiye'nin sevilen komedyeni. Güldürmek onun sanatı, sahne onun evi. "Usta Komedyen" lakabıyla anılan Mesut Can Tomay, her ortama gülüş getirir.</p>
-    <a href="#bilet" class="cta-btn">🎟️ Bilet Al</a>
-    <div class="scroll-down">
-      <span>KEŞFET</span>
-      <div class="scroll-arrow"></div>
+    <div><span class="badge">🎭 Usta Komedyen</span></div>
+    <h1 class="hn">Mesut <span>Can</span> Tomay</h1>
+    <p class="hdesc">Güldürmek bir sanattır — Mesut Can Tomay bu sanatın ustasıdır. Oyunculuk, YouTube ve stand-up ile milyonların yüzünü güldürüyor. 😂</p>
+    <div class="stats">
+      <div class="st"><div class="sn">1M+</div><div class="sl">Instagram</div></div>
+      <div class="st"><div class="sn">1.6M+</div><div class="sl">YouTube</div></div>
+      <div class="st"><div class="sn">2012</div><div class="sl">İlk Dizi</div></div>
     </div>
-  </section>
-
-  <!-- BIO -->
-  <section id="hakkinda" class="reveal">
-    <div class="section-title">Hakkında <span>Kim Bu?</span></div>
-    <div class="section-line"></div>
-    <div class="bio-grid">
-      <div class="bio-card"><div class="label">Doğum Tarihi</div><div class="val">2 Haziran 1999</div></div>
-      <div class="bio-card"><div class="label">Doğum Yeri</div><div class="val">İstanbul</div></div>
-      <div class="bio-card"><div class="label">Burç</div><div class="val">♊ İkizler</div></div>
-      <div class="bio-card"><div class="label">Meslek</div><div class="val">Oyuncu & YouTuber</div></div>
+    <div class="socrow">
+      <a href="https://www.instagram.com/mesutcantomay/" target="_blank" rel="noopener" class="sb2 sig">📸 Instagram</a>
+      <a href="https://www.youtube.com/@MesutCanTomay" target="_blank" rel="noopener" class="sb2 syt">▶️ YouTube</a>
     </div>
-    <div class="bio-text">
-      Mesut Can Tomay, 2 Haziran 1999'da İstanbul'da doğdu. Baba tarafından aslen Karslıdır. Vine'da başlayan içerik üretim serüveni, <strong>Yetenek Sizsiniz Türkiye</strong> yarışmasıyla büyük kitlelerle buluştu. Oyunculuğa adım atmasıyla birlikte dizi ve filmlerde önemli roller üstlendi. <strong>Ali Biçim</strong> ile birlikte çektiği YouTube videoları onu sosyal medyanın en sevilen fenomenlerinden biri haline getirdi. Bugün sahne stand-up gösterileriyle "Usta Komedyen" lakabını hak ediyor.
+  </div>
+
+  <sec class="s rev">
+    <div class="stitle">🎭 Hakkında</div>
+    <div class="card">
+      <div class="ci">👤</div>
+      <div class="ct">Kim Bu Adam?</div>
+      <div class="cx">2 Haziran 1999'da İstanbul'da doğan Mesut Can Tomay, aslen Kars'ın Yusufpaşa ilçesinden. Doğal esprisi, taklit yeteneği ve karizmasıyla kısa sürede milyonların favori komedyeni oldu.</div>
     </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section id="galeri" class="reveal">
-    <div class="section-title">Fotoğraf <span>Galerisi</span></div>
-    <div class="section-line"></div>
-    <div class="gallery">
-      <img src="https://images.unsplash.com/photo-1585675100414-22d9b8979c16?auto=format&fit=crop&w=800&q=80" alt="Galeri 1">
-      <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?auto=format&fit=crop&w=400&q=80" alt="Galeri 2">
-      <img src="https://images.unsplash.com/photo-1521742113254-15949d10e051?auto=format&fit=crop&w=400&q=80" alt="Galeri 3">
+    <div class="card">
+      <div class="ci">⭐</div>
+      <div class="ct">Nasıl Ünlendi?</div>
+      <div class="cx">Vine'da video çekerek dikkat çekti. "Yetenek Sizsiniz Türkiye"de yarı finale kadar yükseldi. Ali Biçim ile açtıkları YouTube kanalı kısa sürede 1 milyon aboneyi geçti. Şu anda Instagram'da 1M+, YouTube'de 1.6M+ takipçisi var.</div>
     </div>
-  </section>
-
-  <!-- BILET SECTION -->
-  <section id="bilet" class="reveal">
-    <div class="bilet-icon">🎭</div>
-    <h2>Sahnede Canlı İzle!</h2>
-    <p style="color: var(--muted); margin-top: 10px; font-size: 14px;">Mesut Can Tomay'ın stand-up gösterisinde kahkahaya doymak için yerinizi ayırtın.</p>
-    <a href="#" class="bilet-btn">🎟️ Bilet Al</a>
-  </section>
-
-  <!-- SOCIAL -->
-  <section id="iletisim" class="reveal" style="padding-top: 0;">
-    <div class="social-row">
-      <a href="#" class="social-btn">📷 Instagram</a>
-      <a href="#" class="social-btn">▶️ YouTube</a>
-      <a href="#" class="social-btn">🎵 TikTok</a>
+    <div class="card">
+      <div class="ci">📋</div>
+      <div class="ct">Kişisel Bilgiler</div>
+      <div class="cx">🎂 <b>Doğum:</b> 2 Haziran 1999 &nbsp;|&nbsp; 📍 <b>Şehir:</b> İstanbul &nbsp;|&nbsp; 🏡 <b>Aslen:</b> Kars<br>♊ <b>Burç:</b> İkizler &nbsp;|&nbsp; 📏 <b>Boy:</b> 1.74 m &nbsp;|&nbsp; 🎬 <b>Meslek:</b> Oyuncu, Komedyen, YouTuber</div>
     </div>
-  </section>
-</main>
+  </sec>
 
-<footer>
-  <p>© 2026 Mesut Can Tomay. Tüm Hakları Saklıdır.</p>
-</footer>
+  <sec class="s rev">
+    <div class="stitle">📅 Kariyer Zaman Tüneli</div>
+    <div class="card">
+      <div class="tl">
+        <div class="tli"><div class="tly">2011</div><div class="tlx">Yetenek Sizsiniz Türkiye'de taklitleriyle yarı finale yükseldi ve geniş kitlelerin ilgisini çekti.</div></div>
+        <div class="tli"><div class="tly">2012</div><div class="tlx">Show TV — "Türk'ün Uzayla İmtihanı" dizisinde Tarkan Yıldırım rolüyle profesyonel oyunculuğa adım attı.</div></div>
+        <div class="tli"><div class="tly">2013</div><div class="tlx">"Mc Dandik" sinema filminde Mc Hela karakterini canlandırdı.</div></div>
+        <div class="tli"><div class="tly">2015–2016</div><div class="tlx">TRT 1 — "Heredot Cevdet Saati" dizisinde çaycı rolüyle izleyiciyle buluştu.</div></div>
+        <div class="tli"><div class="tly">2016</div><div class="tlx">Fox TV — "Kördüğüm" dizisinde rol aldı. Ayrıca "İkinci Şans" ve "Gönül Hırsızları" projelerinde yer aldı.</div></div>
+        <div class="tli"><div class="tly">2017</div><div class="tlx">"Maide'nin Altın Günü" filminde Yağmur karakterini oynadı.</div></div>
+        <div class="tli"><div class="tly">2019</div><div class="tlx">Ali Biçim ile ortak YouTube kanalı açtı. Kısa sürede 1 milyon abonenin sevgisini kazandı.</div></div>
+        <div class="tli"><div class="tly">2020–2021</div><div class="tlx">"Tam Kafadan Karavana" dizisi ve Exxen platformunda "O Adam Oldun Mu?" projesi ile yeni bir soluk getirdi.</div></div>
+        <div class="tli"><div class="tly">Günümüz</div><div class="tlx">Stand-up gösterileri, sahne projeleri ve sosyal medya içerikleriyle hayranlarıyla buluşmaya devam ediyor. 🎤</div></div>
+      </div>
+    </div>
+  </sec>
 
-<!-- JAVASCRIPT KODLARI BURADA -->
+  <sec class="s rev">
+    <div class="stitle">🎟️ Canlı Gösteri</div>
+    <div class="showcard">
+      <div class="sct">🎤 Usta Komedyen Sahnede!</div>
+      <p class="scd">Mesut Can Tomay'ı sahnede canlı izlemek için hemen biletini al. Kahkaha dolu, eğlenceli ve unutulmaz bir gece seni bekliyor!</p>
+      <a class="btnp" href="https://www.bubilet.com.tr/istanbul/etkinlik/usta-komedyen?srsltid=AfmBOorG9AI2WFUXkV58Ff3DiQohtgqlZkthms_B69b1JOCScHUBRBQx" target="_blank" rel="noopener">🎟️ Biletimi Al — bubilet.com.tr</a>
+    </div>
+  </sec>
+
+  <footer>
+    <p class="fr">Bana buradan ulaşabilirsiniz 👇</p>
+    <p class="fc">Made with ❤️ by <a href="https://www.instagram.com/on_r19/" target="_blank" rel="noopener">Onur Teryakioğlu</a></p>
+  </footer>
+</div>
+
+<div id="bm" role="dialog" aria-modal="true">
+  <div class="bb" id="bbox"></div>
+</div>
+
 <script>
-  // 1. INTRO ANİMASYONU VE GİZLEME
-  window.addEventListener('load', () => {
-    const intro = document.getElementById('intro');
-    const barFill = document.getElementById('intro-bar-fill');
+(function(){
+const laughs=["hahaha","kikiki","hohoho","hıhıhı","xD xD","😂","hehe","lol","kkkk","😆","ahahah","çok komik","ölüyorum","bayıldım","wkwk","🤣","hahaha","gülmekten","oh la la"];
+const bg=document.getElementById("bgl");
+for(let i=0;i<32;i++){
+  const el=document.createElement("span");
+  el.textContent=laughs[i%laughs.length];
+  // Animasyon süresini daha da yavaşlattık (15s ile 35s arası)
+  el.style.cssText="left:"+Math.random()*100+"%;font-size:"+(0.7+Math.random()*1.6)+"rem;animation-duration:"+(15+Math.random()*20)+"s;animation-delay:"+(-(Math.random()*30))+"s";
+  bg.appendChild(el);
+}
 
-    // Sayfa açıldığında barı doldur
-    setTimeout(() => {
-      barFill.style.width = '100%';
-    }, 100);
+setTimeout(()=>{
+  document.getElementById("intro").classList.add("gone");
+  document.getElementById("main").classList.add("show");
+  checkBirthday();
+},2400); // Intro bekleme süresini biraz kısalttık
 
-    // CSS'teki 2.5 saniyelik bar dolum süresi bitince introyu gizle
-    setTimeout(() => {
-      intro.style.transition = 'opacity 0.8s ease';
-      intro.style.opacity = '0';
-      
-      // Tamamen görünmez olunca sayfadan kaldır (tıklamayı engellememesi için)
-      setTimeout(() => {
-        intro.style.display = 'none';
-      }, 800);
-    }, 2600);
-  });
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("vis")})},{threshold:.12});
+document.querySelectorAll(".rev").forEach(el=>obs.observe(el));
 
-  // 2. AŞAĞI KAYDIRDIKÇA (SCROLL) ELEMENTLERİN BELİRMESİ
-  function reveal() {
-    var reveals = document.querySelectorAll(".reveal");
-    for (var i = 0; i < reveals.length; i++) {
-      var windowHeight = window.innerHeight;
-      var elementTop = reveals[i].getBoundingClientRect().top;
-      var elementVisible = 100; // Elementin ekranda ne kadar göründüğünde animasyonun başlayacağı sınır
-      
-      if (elementTop < windowHeight - elementVisible) {
-        reveals[i].classList.add("visible");
-      }
-    }
+// Daha soft renk paleti güncellendi
+const colors=["#E5B920","#E5734A","#D45C9E","#7C75EB","#20C9AA","#36B8D8","#E84A68","#47C465","#E59A20"];
+const cp=document.getElementById("cp");
+const savedC=localStorage.getItem("mct-c")||"#E5B920";
+setAccent(savedC);
+colors.forEach(c=>{
+  const d=document.createElement("div");
+  d.className="cd"+(c===savedC?" act":"");
+  d.style.background=c;
+  d.title=c;
+  d.onclick=()=>{
+    setAccent(c);
+    document.querySelectorAll(".cd").forEach(x=>x.classList.remove("act"));
+    d.classList.add("act");
+    localStorage.setItem("mct-c",c);
+  };
+  cp.appendChild(d);
+});
+
+function setAccent(c){
+  document.documentElement.style.setProperty("--accent",c);
+  document.documentElement.style.setProperty("--btn-text",isLight(c)?"#111":"#fff");
+}
+function isLight(h){const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);return(r*299+g*587+b*114)/1000>145}
+
+let light=localStorage.getItem("mct-t")==="light";
+if(light){document.body.classList.add("light");document.getElementById("tt").classList.add("on")}
+window.toggleTheme=function(){
+  light=!light;
+  document.body.classList.toggle("light",light);
+  document.getElementById("tt").classList.toggle("on",light);
+  localStorage.setItem("mct-t",light?"light":"dark");
+};
+
+let bgOn=true;
+window.toggleBg=function(){
+  bgOn=!bgOn;
+  document.getElementById("bgt").classList.toggle("on",bgOn);
+  bg.style.display=bgOn?"block":"none";
+};
+
+window.setFont=function(v){
+  document.documentElement.style.fontSize=v+"px";
+  localStorage.setItem("mct-fs",v);
+};
+const savedF=localStorage.getItem("mct-fs");
+if(savedF){setFont(savedF);document.getElementById("fsr").value=savedF}
+
+let spOpen=false;
+window.toggleSP=function(){
+  spOpen=!spOpen;
+  document.getElementById("sp").classList.toggle("open",spOpen);
+};
+document.addEventListener("click",e=>{
+  if(spOpen&&!e.target.closest("#sp")&&!e.target.closest("#sb")){spOpen=false;document.getElementById("sp").classList.remove("open")}
+});
+
+function checkBirthday(){
+  const now=new Date();
+  if(now.getMonth()===5&&now.getDate()===2){
+    setTimeout(showBirthday,600);
   }
-  window.addEventListener("scroll", reveal);
-  reveal(); // Sayfa ilk yüklendiğinde de kontrol et
+}
 
-  // 3. AYARLAR MENÜSÜ AÇ/KAPA
-  function toggleSettings() {
-    document.getElementById('settings-panel').classList.toggle('open');
+function showBirthday(){
+  const box=document.getElementById("bbox");
+  box.innerHTML=`<span class="be">🎂</span><div class="bt">Doğum Günün Kutlu Olsun!</div><p class="bd">Usta Komedyen<br><strong>Mesut Can Tomay</strong><br>Nice mutlu yıllara! 🎉🎊🥳</p><button class="bc" onclick="closeBD()">Teşekkürler! 🎈</button>`;
+  const cols=["#E5B920","#E5734A","#D45C9E","#7C75EB","#fff","#20C9AA"];
+  for(let i=0;i<55;i++){
+    const c=document.createElement("div");
+    c.className="cf";
+    c.style.cssText="left:"+Math.random()*100+"%;top:-20px;width:"+(6+Math.random()*8)+"px;height:"+(6+Math.random()*8)+"px;background:"+cols[i%cols.length]+";border-radius:"+(Math.random()>.5?"50%":"3px")+";animation-delay:"+Math.random()*3+"s;animation-duration:"+(2+Math.random()*2.5)+"s";
+    box.appendChild(c);
   }
-
-  // 4. TEMA DEĞİŞTİRME SİSTEMİ
-  function setTheme(themeName, btnElement) {
-    // Body etiketinin temasını güncelle
-    document.body.setAttribute('data-theme', themeName);
-    
-    // Butonların aktiflik durumunu güncelle
-    let btns = document.querySelectorAll('.theme-btn');
-    btns.forEach(btn => btn.classList.remove('active'));
-    btnElement.classList.add('active');
-  }
+  document.getElementById("bm").classList.add("show");
+}
+window.closeBD=function(){document.getElementById("bm").classList.remove("show")};
+document.getElementById("bm").addEventListener("click",e=>{if(e.target===document.getElementById("bm"))closeBD()});
+})();
 </script>
-
 </body>
 </html>
