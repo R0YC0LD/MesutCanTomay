@@ -8,10 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 :root {
-  --accent: #E5B920; /* Daha yumuşak bir sarı/altın tonu */
-  --bg: #1a1a1c; /* Tam siyah yerine yumuşak koyu gri */
-  --text: #e4e4e6; /* Tam beyaz yerine kırık beyaz */
-  --card: #242427; /* Arka plandan hafifçe ayrılan soft kart rengi */
+  --accent: #E5B920; 
+  --bg: #1a1a1c; 
+  --text: #e4e4e6; 
+  --card: #242427; 
   --card2: #2a2a2e;
   --btn-text: #111;
   --radius: 20px;
@@ -20,7 +20,6 @@
 html{scroll-behavior:smooth;font-size:16px}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh;transition:background .3s,color .3s}
 
-/* Açık Tema - Daha sıcak ve soft tonlar */
 body.light {
   --bg: #f4f4f5; 
   --text: #2c2e33; 
@@ -28,7 +27,6 @@ body.light {
   --card2: #ececf1;
 }
 
-/* Intro Flashbang Etkisini Giderme */
 #intro{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .7s,visibility .7s}
 #intro.gone{opacity:0;visibility:hidden;pointer-events:none}
 .il{font-family:'Fredoka One',sans-serif;font-size:clamp(2.2rem,10vw,5rem);color:var(--text);text-align:center;animation:bIn .7s ease both}
@@ -40,7 +38,6 @@ body.light {
 @keyframes fUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes barFill{from{width:0}to{width:100%}}
 
-/* Arka Plan Yazıları - Daha düşük opaklık ve yavaş hareket */
 .bgl{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;opacity:.025}
 .bgl span{position:absolute;font-family:'Fredoka One',sans-serif;color:var(--accent);white-space:nowrap;animation:floatUp linear infinite}
 @keyframes floatUp{0%{transform:translateY(110vh) rotate(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-15vh) rotate(400deg);opacity:0}}
@@ -70,7 +67,6 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}
 .hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 1.2rem 3rem;text-align:center;gap:1.3rem}
 .pr{width:clamp(150px,45vw,200px);height:clamp(150px,45vw,200px);border-radius:50%;background:var(--accent);padding:4px;box-shadow:0 0 0 0 var(--accent);animation:glow 4s ease-in-out infinite;flex-shrink:0}
 
-/* Parlama efektini daha soft hale getirdik */
 @keyframes glow{
   0%,100%{box-shadow:0 0 15px rgba(229,185,32,0.15),0 0 30px rgba(229,185,32,0.08)}
   50%{box-shadow:0 0 25px rgba(229,185,32,0.3),0 0 50px rgba(229,185,32,0.15)}
@@ -89,7 +85,7 @@ h1.hn span{color:var(--accent)}
 .socrow{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
 .sb2{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.1rem;border-radius:50px;font-size:.85rem;font-weight:700;text-decoration:none;transition:.2s;font-family:'Poppins',sans-serif}
 .sb2:hover{transform:translateY(-3px);filter:brightness(1.1)}
-.syt{background:#D32F2F;color:#fff} /* Kırmızı tonu yumuşatıldı */
+.syt{background:#D32F2F;color:#fff} 
 .sig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
 .stk{background:#222;color:#fff;border:1px solid #444}
 body.light .stk{background:#eee;color:#111;border-color:#ccc}
@@ -101,7 +97,7 @@ body.light .card{border-color:rgba(0,0,0,0.05); box-shadow:0 2px 10px rgba(0,0,0
 body.light .card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.08)}
 .ci{font-size:1.8rem;margin-bottom:.4rem}
 .ct{font-weight:700;font-size:1rem;color:var(--accent);margin-bottom:.3rem}
-.cx{font-size:.88rem;opacity:.85;line-height:1.65} /* Okunabilirlik için opaklık artırıldı */
+.cx{font-size:.88rem;opacity:.85;line-height:1.65} 
 .tl{border-left:3px solid var(--accent);padding-left:1.4rem;margin-top:.8rem}
 .tli{margin-bottom:1.3rem;position:relative}
 .tli::before{content:'';position:absolute;left:-1.85rem;top:.3rem;width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
@@ -139,7 +135,7 @@ body.light footer{border-top-color:rgba(0,0,0,0.05)}
 
 <div id="intro">
   <div class="il">😂 Mesut Can Tomay</div>
-  <div class="is">Usta Komedyen &amp; İçerik Üreticisi</div>
+  <div class="is">Usta Komedyen & İçerik Üreticisi</div>
   <div class="ibar"><div class="ifill"></div></div>
 </div>
 
@@ -180,7 +176,8 @@ body.light footer{border-top-color:rgba(0,0,0,0.05)}
 <div id="main">
   <div class="hero">
     <div class="pr">
-      <img class="pri" id="pimg" src="https://yt3.googleusercontent.com/ytc/AIdro_mhMJNBE-bEtQRh8vg04Q-dR6X4sCMiTAqD-y0WgRb_=s900-c-k-c0x00ffffff-no-rj" alt="Mesut Can Tomay" onerror="this.style.display='none';document.getElementById('pfall').style.display='flex'">
+      <img class="pri" id="pimg" src="BURAYA_BASE64_KODUNU_YAPIŞTIR" alt="Mesut Can Tomay" onerror="this.style.display='none';document.getElementById('pfall').style.display='flex'">
+      
       <div class="prf" id="pfall" style="display:none">MCT</div>
     </div>
     <div><span class="badge">🎭 Usta Komedyen</span></div>
@@ -212,7 +209,7 @@ body.light footer{border-top-color:rgba(0,0,0,0.05)}
     <div class="card">
       <div class="ci">📋</div>
       <div class="ct">Kişisel Bilgiler</div>
-      <div class="cx">🎂 <b>Doğum:</b> 2 Haziran 1999 &nbsp;|&nbsp; 📍 <b>Şehir:</b> İstanbul &nbsp;|&nbsp; 🏡 <b>Aslen:</b> Kars<br>♊ <b>Burç:</b> İkizler &nbsp;|&nbsp; 📏 <b>Boy:</b> 1.74 m &nbsp;|&nbsp; 🎬 <b>Meslek:</b> Oyuncu, Komedyen, YouTuber</div>
+      <div class="cx">🎂 <b>Doğum:</b> 2 Haziran 1999  |  📍 <b>Şehir:</b> İstanbul  |  🏡 <b>Aslen:</b> Kars<br>♊ <b>Burç:</b> İkizler  |  📏 <b>Boy:</b> 1.74 m  |  🎬 <b>Meslek:</b> Oyuncu, Komedyen, YouTuber</div>
     </div>
   </sec>
 
@@ -259,7 +256,6 @@ const bg=document.getElementById("bgl");
 for(let i=0;i<32;i++){
   const el=document.createElement("span");
   el.textContent=laughs[i%laughs.length];
-  // Animasyon süresini daha da yavaşlattık (15s ile 35s arası)
   el.style.cssText="left:"+Math.random()*100+"%;font-size:"+(0.7+Math.random()*1.6)+"rem;animation-duration:"+(15+Math.random()*20)+"s;animation-delay:"+(-(Math.random()*30))+"s";
   bg.appendChild(el);
 }
@@ -268,12 +264,11 @@ setTimeout(()=>{
   document.getElementById("intro").classList.add("gone");
   document.getElementById("main").classList.add("show");
   checkBirthday();
-},2400); // Intro bekleme süresini biraz kısalttık
+},2400); 
 
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("vis")})},{threshold:.12});
 document.querySelectorAll(".rev").forEach(el=>obs.observe(el));
 
-// Daha soft renk paleti güncellendi
 const colors=["#E5B920","#E5734A","#D45C9E","#7C75EB","#20C9AA","#36B8D8","#E84A68","#47C465","#E59A20"];
 const cp=document.getElementById("cp");
 const savedC=localStorage.getItem("mct-c")||"#E5B920";
